@@ -1,0 +1,46 @@
+Array inMST[n]
+//tracks which nodes are in MST
+
+Array parent_node[n]    
+//tracks the parent 
+
+Array shortest_distance_from_MST[n]     
+//tracks the shortest distance 
+//for each node from MST nodes
+
+MinHeap: {Node, Distance_From_MST}
+
+prims(Graph, start_node){
+    1. All inMST set to 0, except start_node set to 1
+    2. All parent set to start_node
+    3. All shortest_distance_from_MST set to distance from start_node
+    4. All nodes pushed into heap with their distance from start_node
+    5. vertices_in_MST = 1, , total_cost = 0
+
+    while(vertices_in_MST != n){
+        do{min = heap.remove()}
+            while (min is not in MST)
+
+        inMST[min.node] = 1;
+
+        for I in successors of node[i]:
+            if I not inMST and shortest_distance_from_MST[I] > Graph[min][I]:
+                heap.insert(I, Graph[min][I])
+                shortest_distance_from_MST[I] = Graph[min][I]
+                parent[I] = min.node
+    }
+}
+
+Time Complexity: 
+    Line 16 takes O(VlogV)
+    Loop at 26: Worst case we iterate over all edges (E) and insert those in time LogV: ElogV
+    Therefore overall Time Complexity = O(VlogV + ElogV) = O(ElogV) = O(n^2log(n))
+
+Space Complexity:
+    All Arrays are of order n
+    Heap stores data for nodes hence starts as O(n).
+    However in the worst case, all edges might be inserted into heap.
+    Hence Overall Space Complexity: O(E) = O(n^2)
+
+Using a Fibionacci Heap, the Time Complexity can be further reduced to O(E + logV)
+
